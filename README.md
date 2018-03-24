@@ -18,10 +18,12 @@ A computer connected to the Raspberry Pi Zero via USB Ethernet gadget can SSH in
 
 SSH connectivity after will be the following after running the script.
 
-| SSH | wlan0 | eth0 | usb0 |
-|-----|-------|------|------|
-|IPV4| disabled | disabled |enabled |
-|IPV6| disabled | disabled | enabled | 
+| SSH | wlan0    | eth0    | usb0    |
+|-----|----------|---------|---------|
+|IPV4 | disabled | enabled | enabled |
+|IPV6 | disabled | enabled | enabled | 
+
+eth0 is left enabled because we assume hardware network is trusted and protected by firewall.  You can change flag in the file to block eth0
 
 ### Impact on usability of mDNS ###
 mDNS/Bonjour may return all of the IPV4/IPV6 addresses for all interfaces. You must SSH into the Raspberry Pi Zero using one of the addresses for the USB0. You will have to look up the IPV4/IPV6 addresses and determine which ones are available.
