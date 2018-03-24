@@ -8,6 +8,9 @@
 # ref: https://serverfault.com/questions/475717/iptables-block-incoming-on-eth1-and-allow-all-from-eth0
 # ref: https://askubuntu.com/a/30157/8698
 
+disable_eth0=false
+disable_wlan0=true
+
 if ! [ $(id -u) = 0 ]; then
    echo "The script need to be run as root." >&2
    exit 1
@@ -40,16 +43,25 @@ ip6tables -F INPUT
 echo "Reset Input Rules"
 
 # enable iptables inbound rule blocking SSH on wlan0/eth0
-if [ -e /sys/class/net/wlan0 ]; then
-    echo "Blocking port 22: wlan0"
-    iptables -A INPUT -p tcp --dport 22 -i wlan0 -j DROP
-    ip6tables -A INPUT -p tcp --dport 22 -i wlan0 -j DROP
+if [ "$disable_wlan0" = true ]; then
+    if [ -e /sys/class/net/wlan0 ]; then
+        echo "wlan0: Blocking port 22"
+        iptables -A INPUT -p tcp --dport 22 -i wlan0 -j DROP
+        ip6tables -A INPUT -p tcp --dport 22 -i wlan0 -j DROP
+    fi
+else
+    echo "wlan0: No block requested"
 fi
-if [ -e /sys/class/net/eth0 ]; then
-    echo "Blocking port 22: eth0"
-    iptables -A INPUT -p tcp --dport 22 -i eth0 -j DROP
-    ip6tables -A INPUT -p tcp --dport 22 -i eth0 -j DROP
+if [ "$disable_eth0" = true ]; then
+    if [ -e /sys/class/net/eth0 ]; then
+        echo "eth0: Blocking port 22"
+        iptables -A INPUT -p tcp --dport 22 -i eth0 -j DROP
+        ip6tables -A INPUT -p tcp --dport 22 -i eth0 -j DROP
+    fi
+else 
+    echo "eth0: No block requested"
 fi
+
 # log the current rules
 echo "----------------------------------------------"
 echo inbound rules after blocking ssh on  wlan0/eth0
@@ -60,7 +72,7 @@ echo "----------------------------------------------"
 
 # install if not already there
 PKG_OK=$(dpkg-query -W --showformat='${Status}\n' iptables-persistent | grep "install ok installed")
-echo Determined status for iptables-persistent: '$PKG_OK'
+#echo Determined status for iptables-persistent: '$PKG_OK'
 if [ -z "$PKG_OK" ]; then
   echo "No iptables-persistent. iptables-persistent up somelib."
   apt-get --force-yes --yes install iptables-persistent
