@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Created 2018-03-20 http://joe.blog.freemansoft.com
 # derived from 2017-08-18 https://raspberrypi.stackexchange.com/questions/42145/raspberry-pi-hardware-id
 # script to set Pi hostname based on MAC (or Serial number)
