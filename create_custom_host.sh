@@ -47,4 +47,6 @@ else
     echo "Setting Name" $NEW_HOSTNAME
     echo $NEW_HOSTNAME > /etc/hostname
     sed -i "/127.0.1.1/s/$CURRENT_HOSTNAME/$NEW_HOSTNAME/" /etc/hosts
+    # change it without waiting for a restart
+    hostname $NEW_HOSTNAME
 fi
