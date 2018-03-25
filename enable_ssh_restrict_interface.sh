@@ -74,8 +74,8 @@ echo "----------------------------------------------"
 PKG_OK=$(dpkg-query -W --showformat='${Status}\n' iptables-persistent | grep "install ok installed")
 #echo Determined status for iptables-persistent: '$PKG_OK'
 if [ -z "$PKG_OK" ]; then
-  echo "No iptables-persistent. iptables-persistent up somelib."
-  apt-get --force-yes --yes install iptables-persistent
+  echo "No iptables-persistent. Installing iptables-persistent."
+  apt-get --yes install iptables-persistent
 else
   # persist the changes.
   echo "iptables-persistent present so just reconfigure."
