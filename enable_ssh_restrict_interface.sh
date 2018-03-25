@@ -8,8 +8,12 @@
 # ref: https://serverfault.com/questions/475717/iptables-block-incoming-on-eth1-and-allow-all-from-eth0
 # ref: https://askubuntu.com/a/30157/8698
 
+# eth0 hardware, 
+# wlan0 PZero, P3, P3+ builtin or P2 USB Wi-fi
+# wlan1 P3, P3+ USB Wi-Fi
 disable_eth0=false
 disable_wlan0=true
+disable_wlan1=true
 
 if ! [ $(id -u) = 0 ]; then
    echo "The script need to be run as root." >&2
@@ -51,6 +55,15 @@ if [ "$disable_wlan0" = true ]; then
     fi
 else
     echo "wlan0: No block requested"
+fi
+if [ "$disable_wlan1" = true ]; then
+    if [ -e /sys/class/net/wlan1 ]; then
+        echo "wlan1: Blocking port 22"
+        iptables -A INPUT -p tcp --dport 22 -i wlan1 -j DROP
+        ip6tables -A INPUT -p tcp --dport 22 -i wlan1 -j DROP
+    fi
+else
+    echo "wlan1: No block requested"
 fi
 if [ "$disable_eth0" = true ]; then
     if [ -e /sys/class/net/eth0 ]; then
