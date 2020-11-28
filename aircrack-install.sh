@@ -26,13 +26,7 @@ apt-get -y install kalipi-kernel kalipi-bootloader kalipi-re4son-firmware kalipi
 echo "Add mon0 to /etc/rc.local if not already there"
 cd /tmp
 if ! grep -q "ifconfig mon0" "/etc/rc.local"; then
-  sudo sed -i "s/exit 0/#exit 0/g" /etc/rc.local
-  echo "
-iw phy phy0 interface add mon0 type monitor
-ifconfig mon0 up
-
-exit 0
-" >> /etc/rc.local
+  sed -i "s/exit 0/# Enable mon0 for aircrack\niw phy phy0 interface add mon0 type monitor\nifconfig mon0 up\n\nexit 0/" /etc/rc.local
 fi
 
 # should this run after reboot
