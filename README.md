@@ -106,3 +106,29 @@ All of these must be run with _sudo_
 | Recommended | hostname-custom-serial.sh | Sets the hostname of the pi to pi-<serial_id>.  Updates /etc/hostname and /etc/hosts |
 
 
+# Notes about LEDs for future reference
+If you would like to add a script that sets the LED0 status indicator then 
+
+* [these notes might help](https://gist.github.com/taktran/1b691c08216dd30b70bf).
+
+## Exploration
+Find what triggers are allowed for led0 (status indicator)
+
+    > cat /sys/class/leds/led0/trigger
+
+Set the led to be heardbeat as _sudo_
+
+    > modprobe ledtrig_heartbeat
+    > echo heartbeat > /sys/class/leds/led0/trigger
+or
+
+    > echo cpu | /sys/class/leds/led0/trigger
+
+disable the trigger so can controll direcly
+
+    > echo none | /sys/class/leds/led0/trigger
+Turn on and off
+
+    > echo 1 | sudo tee /sys/class/leds/led0/brightness
+    > echo 0 | sudo tee /sys/class/leds/led0/brightnes
+
