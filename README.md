@@ -101,9 +101,10 @@ A set of **optional** utility scripts will be copied to the boot partition.
 All of these must be run with _sudo_ 
 | | script | purpose |
 | - | - | - |
-| | aircrack-install.sh | Converts this pi to an aircrack machine with monitor mode |
-| Recommended | firewall.sh | Enables the firewall blocking all inbound traffic on wlan0 while leaving usb0 open |
-| Recommended | hostname-custom-serial.sh | Sets the hostname of the pi to pi-<serial_id>.  Updates /etc/hostname and /etc/hosts |
+| Speciality  | aircrack-install.sh           | Converts this pi to an aircrack machine with monitor mode |
+| Recommended | hostname-custom-serial-set.sh | Sets the hostname of the pi to pi-<serial_id>.  Updates /etc/hostname and /etc/hosts |
+| Optional    | lead-heartbeat-enable.sh      | Changes the trigger for the onboard status led to be a heartbeat pattern |
+| Recommended | ufw-firewall-enable.sh        | Enables the firewall blocking all inbound traffic on wlan0 while leaving usb0 open |
 
 
 # Notes about LEDs for future reference
