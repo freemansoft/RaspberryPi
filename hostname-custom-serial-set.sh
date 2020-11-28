@@ -25,3 +25,5 @@ if ! grep -q $hostname_new /etc/hostname; then
 else
     echo "No change made. Name already set to $hostname_new"
 fi
+
+hostname $hostname_new

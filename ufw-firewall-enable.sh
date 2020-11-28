@@ -10,9 +10,14 @@ if [ $(id -u) -ne 0 ]
 fi
 
 apt-get -y install ufw
+echo "Blocking all inbound"
+echo "Blocking all outbound"
 sudo ufw default allow outgoing
 sudo ufw default deny incoming
-# enable anything over the usb0 port
+# enable anything over the usb0 port and eth0 - only Zero supports usb0
+echo "Allowing inbound on wired connections usb0 and eth0"
 sudo ufw allow in on usb0
+sudo ufw allow in on eth0
 # start the firewall without prompting
 ufw --force enable
+ufw status verbose

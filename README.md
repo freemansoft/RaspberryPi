@@ -2,9 +2,13 @@ Windows Powershell scripts and automation for building and configuring Raspberry
 
 This _Powershell_ script configures a freshly created Raspberry Pi bootable SD card to appear as a private network when plugged into a computer over USB. This means you can configure the USB network and Wi-Fi for a brand new Raspberry Pi without logging into the box to do it. You get full network connectivity and tooling for working with a Raspberry Pi that would not otherwise be on a network.
 
-I build this using PowerShell because my base laptop is a windows machine.
+I built this using PowerShell because my base laptop is a windows machine.
 
+## Pi Zero / Pi Zero topology with USB g_ether gadget
 ![Topology with PC and Pi-Zero-W](./images/Pi-Network-Gadget.png)
+
+## Pi topology for those that can't run in gadget mode, 2, 3, etc.
+![Topology with PC and Ethernet connected Pi](./images/Pi-Network-Non-Zero.png)
 
 ## Video Walkthrough
 
@@ -25,8 +29,8 @@ I build this using PowerShell because my base laptop is a windows machine.
 
 `NetworkName` and `NetworkPassword` are _optional_ parameters. Both are _required_ if either are specified.
 
-# Configuring the Pi as a USB ethernet device
-## Steps
+# Configuring 
+## Steps to configure Pi Zero as USB Network Device
 1. Create a new micro SD card using the _Raspberry Pi Imager_
     1. You may have to eject the card and re-insert it to mount the boot partition
 1. Run the script `Enable-Ethernet-Gadget.ps` as described in _Usage_
@@ -37,7 +41,17 @@ I build this using PowerShell because my base laptop is a windows machine.
 1. You should see `USB Ethernet/RNDIS Gadget` in the _Device Manager_ control panel
   * ![Widnows Device Manager](./images/RaspberryPi-NDIS-Gadget.png)
   
-## Verify over the USB connection
+## Steps to configure Pi 3 or other _non Zero_ device
+1. Create a new micro SD card using the _Raspberry Pi Imager_
+    1. You may have to eject the card and re-insert it to mount the boot partition
+1. Run the script `Enable-Ethernet-Gadget.ps` as described in _Usage_
+1. Eject the card and insert into Raspberry Pi 3, etc.
+1. Plug a hardwire ethernet connection in. We will disable wifi ssh access later.
+1. Plug a power adapter into the _POWER_ port on the Raspberry Pi Zero
+1. Wait for the device to boot up. The first boot is the slowest as it unpacks the fresh O/S
+1. Proceed to verification
+
+## Verify over the USB connection or Ethernet
 1. `ping raspberrypi.local`
   ```
   PS C:\pi-zero-ethernet-gadget> ping raspberrypi.local
