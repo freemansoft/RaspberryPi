@@ -2,21 +2,23 @@
 Various Raspberry Pi Scripts and programs. Some of these are [discussed on my blog](joe.blog.freemansoft.com)
 
 ## create_custom_host.sh ##
-Can be used when setting up more than one Raspberry Pi for the same network.  The hostname change happens _immediately_. 
+The default DNS name for a raspberry pi is `raspberrypi.local`  
+This is obviously an issue if you have more than on Raspberry Pi on your network.
+`create_custom_host.sh` can be used when setting up more than one Raspberry Pi for the same network.  The hostname change happens **immediately**. 
 
-* Sets the hostname to be unique by including the CPUID.
-* Can also set the hostname from a hostname mapping file.
+Operates two different ways
+1. Sets the hostname to be unique by including the CPUID.
+    1. Write down the name prior to restart or you won't be able to find the machine in DNS / mDNS. 
+1. Can also set the hostname from a hostname mapping file.
+    1. Create a file _PiNames.txt_ with a list of host names and CPUIDs. 
+    1. The script will pull the host name from the matching row in the file
 
-### Notes ###
-1) Write down the name prior to restart or you won't be able to find the machine in DNS / mDNS.
 
 ## enable_uart_g_ether.sh ##
-Enables the USB ethernet gadget feature on a Raspberry Pi Zero (W, 1.3...). This makes the the Raspberry Pi Zero appear as a new network when plugged into a PC/Mac USB port.  It shows up as a _169.x.x.x_ network.
+Enables the USB ethernet gadget feature on a Raspberry Pi Zero (W, 1.3...). This makes the the Raspberry Pi Zero appear as a new network when plugged into a PC/Mac USB port.  It shows up as a _raspberrypi.local_ on a _169.x.x.x_ network.
 
 ## enable_ssh_restrict_interface.sh ##
-Lets you ssh into a **Raspberry Pi Zero** that has been configured as a network gadget while blocking WAN/LAN connections.
-
-Enables SSH but blocks connections on **non USB0** interfaces. No other service/port is affected. All inbound services other than SSH are available on all interfaces.
+Enables SSH but blocks connections on **non USB0** interfaces. No other service/port is affected. All inbound services other than SSH are available on all interfaces. Lets you ssh into a **Raspberry Pi Zero** that has been configured as a network gadget while blocking WAN/LAN connections.
 
 ### Impact on SSH connectivity
 A computer connected to the Raspberry Pi Zero via ethernet or wi-fi cannot SSH into the R-Pi.
