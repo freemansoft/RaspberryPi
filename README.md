@@ -7,7 +7,7 @@ I built this using PowerShell because my base laptop is a windows machine.
 ## Pi Zero / Pi Zero topology with USB g_ether gadget
 ![Topology with PC and Pi-Zero-W](./images/Pi-Network-Gadget.png)
 
-## Pi topology for those that can't run in gadget mode, 2, 3, etc.
+## Pi topology for devices that don't support g_ether: Pi-2, Pi-3, Pi-4, etc.
 ![Topology with PC and Ethernet connected Pi](./images/Pi-Network-Non-Zero.png)
 
 ## Video Walkthrough
