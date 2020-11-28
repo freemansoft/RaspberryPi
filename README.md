@@ -4,7 +4,7 @@ This _Powershell_ script configures a freshly created Raspberry Pi bootable SD c
 
 I build this using PowerShell because my base laptop is a windows machine.
 
-![Topology with PC and Pi-Zero-W](./Pi-Network-Gadget.png)
+![Topology with PC and Pi-Zero-W](./images/Pi-Network-Gadget.png)
 
 ## Video Walkthrough
 
@@ -35,7 +35,7 @@ I build this using PowerShell because my base laptop is a windows machine.
 1. Plug a power adapter into the _POWER_ port on the Raspberry Pi Zero
 1. Wait for the device to boot up. The first boot is the slowest as it unpacks the fresh O/S
 1. You should see `USB Ethernet/RNDIS Gadget` in the _Device Manager_ control panel
-  * ![Widnows Device Manager](./RaspberryPi-NDIS-Gadget.png)
+  * ![Widnows Device Manager](./images/RaspberryPi-NDIS-Gadget.png)
   
 ## Verify over the USB connection
 1. `ping raspberrypi.local`
