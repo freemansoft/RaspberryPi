@@ -1,64 +1,108 @@
-# RaspberryPi Scripts
-Various Raspberry Pi Scripts and programs. Some of these are [discussed on my blog](joe.blog.freemansoft.com)
+Windows Powershell scripts and automation for building and configuring Raspberry Pi (Zero W) as an Ethernet Gadget.  This means you can write a new Raspberry Pi Image and configure it for as a USB Network device and configure Wi-Fi before installing the card into a Raspberry Pi and starting it.
 
-## create_custom_host.sh ##
-Can be used when setting up more than one Raspberry Pi for the same network.  The hostname change happens _immediately_. 
+This _Powershell_ script configures a freshly created Raspberry Pi bootable SD card to appear as a private network when plugged into a computer over USB. This means you can configure the USB network and Wi-Fi for a brand new Raspberry Pi without logging into the box to do it. You get full network connectivity and tooling for working with a Raspberry Pi that would not otherwise be on a network.
 
-* Sets the hostname to be unique by including the CPUID.
-* Can also set the hostname from a hostname mapping file.
+I build this using PowerShell because my base laptop is a windows machine.
 
-### Notes ###
-1) Write down the name prior to restart or you won't be able to find the machine in DNS / mDNS.
+![Topology with PC and Pi-Zero-W](./Pi-Network-Gadget.png)
 
-## enable_uart_g_ether.sh ##
-Enables the USB ethernet gadget feature on a Raspberry Pi Zero (W, 1.3...). This makes the the Raspberry Pi Zero appear as a new network when plugged into a PC/Mac USB port.  It shows up as a _169.x.x.x_ network.
+## Video Walkthrough
 
-## enable_ssh_restrict_interface.sh ##
-Lets you ssh into a **Raspberry Pi Zero** that has been configured as a network gadget while blocking WAN/LAN connections.
+[![Video Walkthrough](https://i9.ytimg.com/vi/Ci_mZJoS3tg/mq3.jpg?sqp=CIyYgf4F&rs=AOn4CLC1JsYWLTaAGd9ybdNrNLXm6SQfJw)](https://youtu.be/Ci_mZJoS3tg "Youtube")
 
-Enables SSH but blocks connections on **non USB0** interfaces. No other service/port is affected. All inbound services other than SSH are available on all interfaces.
+# Configure a Raspberry PI O/S SDCard using Enable-Ethernet-Gadget.ps
+1. Configures the Pi's USB as OTG
+1. Makes the Pi appear a USB based network adapter with the Pi as the other device on the network. This is sometimes referred to as a _Network Gadget_ mode.
+1. Enables SSH so you can ssh in over the USB connection or over wifi
+1. _Optionally_ configures the wi-fi for a specific network
+1. Copies some useful configuration scripts to the boot partition
 
-### Impact on SSH connectivity
-A computer connected to the Raspberry Pi Zero via ethernet or wi-fi cannot SSH into the R-Pi.
+## Usage
+`Enable-Ethernet-Gadget -PIBootDrive F: -NetworkName my-ssid -NetworkPassword my-network-password`
+* `PIBootDrive` The Drive letter for the SD card boot partition _Defaults to F:_
+* `NetworkName` The SSID of your wireless network
+* `NetworkPassword` The wireless network password
 
-A computer connected to the Raspberry Pi Zero via USB Ethernet gadget can SSH into the R-Pi as long as it uses the LAN interface USB0.  Connections via other interfaces will be blocked like in the previous scenario 
+`NetworkName` and `NetworkPassword` are _optional_ parameters. Both are _required_ if either are specified.
 
-SSH connectivity after will be the following after running the script.
+# Configuring the Pi as a USB ethernet device
+## Steps
+1. Create a new micro SD card using the _Raspberry Pi Imager_
+    1. You may have to eject the card and re-insert it to mount the boot partition
+1. Run the script `Enable-Ethernet-Gadget.ps` as described in _Usage_
+1. Eject the card and insert into Raspberry Pi Zero
+1. Plug the _USB_ port into your computer.
+1. Plug a power adapter into the _POWER_ port on the Raspberry Pi Zero
+1. Wait for the device to boot up. The first boot is the slowest as it unpacks the fresh O/S
+1. You should see `USB Ethernet/RNDIS Gadget` in the _Device Manager_ control panel
+  * ![Widnows Device Manager](./RaspberryPi-NDIS-Gadget.png)
+  
+## Verify over the USB connection
+1. `ping raspberrypi.local`
+  ```
+  PS C:\pi-zero-ethernet-gadget> ping raspberrypi.local
+  Pinging raspberrypi.local [fe80::d31c:3ca4:a4b6:895f%61] with 32 bytes of data:
+  Reply from fe80::d31c:3ca4:a4b6:895f%61: time=1ms
+  Reply from fe80::d31c:3ca4:a4b6:895f%61: time<1ms
+  Reply from fe80::d31c:3ca4:a4b6:895f%61: time<1ms
+  Reply from fe80::d31c:3ca4:a4b6:895f%61: time<1ms
+  ```
+1. SSH to the device it is known as `raspberrypi.local` The default username is `pi` and the default password is `raspberry'
+  * Using the linux WSL command prompt `ssh pi@raspberrypi.local`
+  * Using Putty... _to be added_
 
-| SSH | wlan0    | eth0    | usb0    |
-|-----|----------|---------|---------|
-|IPV4 | disabled | enabled | enabled |
-|IPV6 | disabled | enabled | enabled | 
+## Log in and verify wifi (optional)
+1. SSH into the device
+1. run `ifconfig wlan0` and verify the IP address is from your network. 
+  * A `169.x.y.z` address means it did not work.
 
-eth0 is left enabled because we assume hardware network is trusted and protected by firewall.  You can change flag in the file to block eth0
+# Troubleshooting
+## Enabling Powershell scripts
 
-### Impact on usability of mDNS ###
-mDNS/Bonjour may return all of the IPV4/IPV6 addresses for all interfaces. You must SSH into the Raspberry Pi Zero using one of the addresses for the USB0. You will have to look up the IPV4/IPV6 addresses and determine which ones are available.
+You may have enable powershell scripts from an _elevated_ prompt
+ `set-executionpolicy remotesigned`
 
-Use the **dns-sd** command.  The following command returns all addresses for a Raspberry-Pi that has two network interfaces: _wlan0_ and _usb0_ (gadget). You can see the two interfaces in the interface (_if_) column.
+## Enabling Debug Output
 
-* dns-sd -G v4v6 \<hostname\>.local 
-```
-C:\Users\joe>dns-sd -G v4v6 pi-520863f1.local
-Timestamp     A/R Flags if Hostname                  Address                                      TTL
-21:57:00.586  Add     3 20 pi-520863f1.local.        FE80:0000:0000:0000:1B31:2156:F706:AFB8%ethernet_32785 120
-21:57:00.590  Add     2 20 pi-520863f1.local.        169.254.107.129                              120
-21:57:00.674  Add     3 13 pi-520863f1.local.        FE80:0000:0000:0000:1BE6:83EB:185C:D72F%ethernet_32777 120
-21:57:00.676  Add     2 13 pi-520863f1.local.        192.168.1.3                                  120
-```
-My home network is _192.168.1.x_ and that the mDNS network is usually _169.254.x.x_ . SSH, for the host in the example, is only be available on the 169 network.  
+* Enable debug out put with
+ *  `$DebugPreference = "Continue"`
+* Disable debug with
+ * `$DebugPreference = "SilentlyContinue"`
+* Supposedly you can temporarily enable deebug outwith but I never got it to work: -Debug
 
-Only SSH is restricted. This means you can
-* _SSH_ into any of the address on _IF 20_. 
-* Connect to any non SSH service, like a web server, on all returned addresses (all interfaces).
+# Related Sites
+* Install Raspberry Pi OS using [Raspberry Pi Imager](https://www.raspberrypi.org/software/)
+* [This site](https://medium.com/@aallan/setting-up-a-headless-raspberry-pi-zero-3ded0b83f274) provided the basis for this script
 
-#### Notes
-* The host in the example command had its hostname set with _create\_custom\_host.sh_
-* **dns-sd** 
-  * You **must include** the _.local_ when running _dns-sd_ with a hostname.
-  * SSH, mDNS and the routing can take a while to go live on a Raspberry Pi Zero connected to a PC. 
-  * DNS may show quickly. The routing seems to take a while.  
-  * I've seen it take several minutes to be able to ssh on the 169.168 network addresses. I found it easiest to ping the box until it replies. Initially the ping will timeout and then start seeing replies.
-  * You may not see slow/routing or routing timeouts if the USB connection is the only route between your PC and the Raspberry Pi Zero in with ether gadget.
+# Known Issues
+1. Hard coded country code is 'US'
+
+# All Gadget Modules
+As of 11/2020
+
+| | |
+|-|-|
+| Serial |  g_serial |
+| Ethernet |  g_ether |
+| Mass storage |  g_mass_storage |
+| MIDI |  g_midi |
+| Audio |  g_audio |
+| Keyboard/Mouse |  g_hid |
+| Mass storage and Serial |  g_acm_ms |
+| Ethernet and Serial |  g_cdc |
+| Multi |  g_multi - Allows you to configure 2 from Ethernet, Mass storage and Serial |
+| Webcam |  g_webcam |
+| Printer |  g_printer |
+| Gadget tester |  g_zero |
+
+# Additional scripts copied to boot partition
+A set of **optional** utility scripts will be copied to the boot partition.
+
+All of these must be run with _sudo_ 
+| | script | purpose |
+| - | - | - |
+| | aircrack-install.sh | Converts this pi to an aircrack machine with monitor mode |
+| Recommended | firewall.sh | Enables the firewall blocking all inbound traffic on wlan0 while leaving usb0 open |
+| Recommended | hostname-custom-serial.sh | Sets the hostname of the pi to pi-<serial_id>.  Updates /etc/hostname and /etc/hosts |
 
 
