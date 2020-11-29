@@ -18,6 +18,9 @@ sudo ufw default deny incoming
 echo "Allowing inbound on wired connections usb0 and eth0"
 sudo ufw allow in on usb0
 sudo ufw allow in on eth0
+
+#sudo ufw allow proto tcp from any to any port 80,443
+
 # start the firewall without prompting
 ufw --force enable
 ufw status verbose
