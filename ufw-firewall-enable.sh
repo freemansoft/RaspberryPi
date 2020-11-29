@@ -24,3 +24,8 @@ sudo ufw allow in on eth0
 # start the firewall without prompting
 ufw --force enable
 ufw status verbose
+
+# wlan is blocked/disabled on headless(?) installs for security reasons?
+# TODO: should verify wireless set to "yes" before trying to set to "no"
+rfkill list
+rfkill unblock wlan
