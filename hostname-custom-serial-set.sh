@@ -18,12 +18,11 @@ pi_serial=$(cat /proc/cpuinfo | grep Serial | cut -d ' ' -f 2 | sed s/0//g)
 hostname_new="pi"-$pi_serial
 
 if ! grep -q $hostname_new /etc/hostname; then
-    echo "Changing hostname from $hostname_orig to $hostname_new"
+    echo "Changing hostname from $hostname_orig to $hostname_new - Will take effect immediately."
     sudo sed -i "s/$hostname_orig/$hostname_new/g" /etc/hostname
     sudo sed -i "s/$hostname_orig/$hostname_new $hostname_orig/g" /etc/hosts
-    echo "Reboot to make change take effect"
+    hostname $hostname_new
 else
     echo "No change made. Name already set to $hostname_new"
 fi
 
-hostname $hostname_new
