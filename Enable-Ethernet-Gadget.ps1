@@ -38,12 +38,12 @@ LiteralPath= "$ConfigFilePath", "$CmdlineConfigFilePath"
 CompressionLevel = "Fastest"
 DestinationPath = "$PiBootDrive\backup-cmd-config-$(get-date -f yyyy-MM-dd-hhmmss).zip"
 }
-echo 'Backing up files to', $backup.DestinationPath
+Write-Output 'Backing up files to', $backup.DestinationPath
 Compress-Archive @backup
 
 ####################################################
 # touch ssh to enable ssh
-echo "Enabling ssh"
+Write-Output "Enabling ssh"
 Add-Content $SshFileNamePath $null
 
 ####################################################
@@ -54,11 +54,11 @@ Write-Debug "$ConfigFilePath full contents:`n $ConfigContentOrig"
 $ConfigContainsOverlay = $ConfigContentOrig | %{$_ -match $EnableGadgetOverlay}
 Write-Debug "ConfigTxtContainsOverlay: $ConfigContainsOverlay"
 If($ConfigContainsOverlay -notcontains $true){
-    echo "Enabling ethernet gadget in $ConfigFilePath"
+    Write-Output "Enabling ethernet gadget in $ConfigFilePath"
     Add-Content -NoNewline -Path $ConfigFilePath "`n# Enable ethernet gadget`n"
     Add-Content -NoNewline -Path $ConfigFilePath $EnableGadgetOverlay
 } else {
-    echo "Ethernet gadget already exists in $ConfigFilePath"
+    Write-Output "Ethernet gadget already exists in $ConfigFilePath"
 }
 
 ####################################################
@@ -70,21 +70,21 @@ Write-Debug "cmdline.txt before processing`n $CmdlineContentOrig"
 $CmdlineContainsOrig = $CmdlineContentOrig | %{$_ -match $CmdlinePatternOrig}
 $CmdlineContainsTarget = $CmdlineContentOrig | %{$_ -match $CmdlinePatternFinal}
 if($CmdlineContainsOrig -contains $true){
-    echo "Adding ethernet gadget to $CmdlineConfigFilePath"
+    Write-Output "Adding ethernet gadget to $CmdlineConfigFilePath"
     $CmdlineContentFinal = $CmdlineContentOrig -replace "$CmdlinePatternOrig", "$CmdlinePatternFinal"
     Write-Debug "cmdline.txt after `n $CmdlineContentFinal"
     Set-Content -NoNewline -Path $CmdlineConfigFilePath -Value $CmdlineContentFinal
 } elseif ($CmdlineContainsTarget -contains $true ) {
-    echo "Ethernet gadget already exists in $CmdlineConfigFilePath"
+    Write-Output "Ethernet gadget already exists in $CmdlineConfigFilePath"
 } else {
-    echo "Ethernet gadget not added to $CmdlineConfigFilePath because I'm confused about contents"
+    Write-Output "Ethernet gadget not added to $CmdlineConfigFilePath because I'm confused about contents"
 }
 
 
 ###################################################
 # enable wireless if values provided
 if ( ( $NetworkName -ne $null) -and ($NetworkPassword -ne $null)){
-    echo "Configuring $WpaSupplicantPath for network $NetworkName"
+    Write-Output "Configuring $WpaSupplicantPath for network $NetworkName"
     $WpaSupplicantString = 
 'ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
 update_config=1
@@ -101,12 +101,12 @@ network={
     $WpaSupplicantString = $WpaSupplicantString -replace "NetworkPassword", "$NetworkPassword"
     Set-Content -NoNewline -Path $WpaSupplicantPath -Value $WpaSupplicantString
 } else {
-    echo "Network not enabled: NetworkName or NetworkPassword not provided"
+    Write-Output "Network not enabled: NetworkName or NetworkPassword not provided"
 }
 
 ###################################################
 # 
-echo "Copying aircrack-install.sh to boot volume in case you want to install and use it"
-echo "Copying firewall.sh to boot volume in case you want to allow SSH only on USB0"
-echo "Copying hostname-custom-serial.sh to boot volume in case you want to set hostname to pi-<serial>.local"
+Write-Output "Copying aircrack-install.sh to boot volume in case you want to install and use it"
+Write-Output "Copying firewall.sh to boot volume in case you want to allow SSH only on USB0"
+Write-Output "Copying hostname-custom-serial.sh to boot volume in case you want to set hostname to pi-<serial>.local"
 Copy-Item -Path "*.sh" -Destination "$PiBootDrive"
