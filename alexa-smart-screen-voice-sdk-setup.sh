@@ -46,7 +46,8 @@ pip install commentjson
 cd $HOME/sdk-folder/sdk-source    
 git clone --single-branch --branch v1.21.0 git://github.com/alexa/avs-device-sdk.git
 
-# This installes the sensory library to enable wake word.  
+# This installs the sensory library to enable wake word.  
+# It pauses the installation asking for liscense agreement.
 # There should really be a switch here to enable/disable
 cd $HOME/sdk-folder/third-party
 git clone git://github.com/Sensory/alexa-rpi.git
@@ -67,7 +68,7 @@ cd $HOME/sdk-folder/sdk-build
  -DCMAKE_INSTALL_PREFIX=$HOME/sdk-folder/sdk-install \
  -DRAPIDJSON_MEM_OPTIMIZATION=OFF
 
- make install
+make install
 
 cp $HOME/config.json $HOME/sdk-folder/sdk-source/avs-device-sdk/tools/Install
 
