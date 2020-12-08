@@ -46,11 +46,14 @@ pip install commentjson
 cd $HOME/sdk-folder/sdk-source    
 git clone --single-branch --branch v1.21.0 git://github.com/alexa/avs-device-sdk.git
 
+# This installes the sensory library to enable wake word.  
+# There should really be a switch here to enable/disable
 cd $HOME/sdk-folder/third-party
 git clone git://github.com/Sensory/alexa-rpi.git
 cd $HOME/sdk-folder/third-party/alexa-rpi/bin/
 ./license.sh
 
+# Remove the -DSENSORY_KEY_WORD_DETECTOR.... to remove Sensory
 cd $HOME/sdk-folder/sdk-build
  cmake $HOME/sdk-folder/sdk-source/avs-device-sdk \
  -DSENSORY_KEY_WORD_DETECTOR=ON \

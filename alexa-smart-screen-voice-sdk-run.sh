@@ -21,4 +21,7 @@ echo "t <enter> to wake.  q <enter> to quit"
 
 # run the sample app
 cd $HOME/sdk-folder/sdk-build
-PA_ALSA_PLUGHW=1 ./SampleApp/src/SampleApp ./Integration/AlexaClientSDKConfig.json DEBUG9
+# Run trigger keys with debug
+#PA_ALSA_PLUGHW=1 ./SampleApp/src/SampleApp ./Integration/AlexaClientSDKConfig.json DEBUG9
+# Run trigger wake word without debug
+PA_ALSA_PLUGHW=1 ./SampleApp/src/SampleApp ./Integration/AlexaClientSDKConfig.json ../third-party/alexa-rpi/models
