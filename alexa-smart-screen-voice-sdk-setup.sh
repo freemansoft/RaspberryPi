@@ -21,8 +21,8 @@ then
 fi
 
 cd $HOME
-mkdir sdk_folder
-cd sdk_folder
+mkdir sdk-folder
+cd sdk-folder
 mkdir sdk-build sdk-source third-party sdk-install db
 
 sudo apt-get -y install \
@@ -30,7 +30,7 @@ sudo apt-get -y install \
    libssl-dev libsoup2.4-dev libgcrypt20-dev libgstreamer-plugins-bad1.0-dev \
     gstreamer1.0-plugins-good libasound2-dev doxygen
 
-cd $HOME/sdk_folder/third-party
+cd $HOME/sdk-folder/third-party
 
 # yes, 2016 is the last year it was deemed truely stable
 wget -c http://www.portaudio.com/archives/pa_stable_v190600_20161030.tgz
@@ -43,34 +43,42 @@ make
 pip install commentjson
 
 
-cd $HOME/sdk_folder/sdk-source    
+cd $HOME/sdk-folder/sdk-source    
 git clone --single-branch --branch v1.21.0 git://github.com/alexa/avs-device-sdk.git
 
-cd $HOME/sdk_folder/sdk-build
- cmake $HOME/sdk_folder/sdk-source/avs-device-sdk \
+cd $HOME/sdk-folder/third-party
+git clone git://github.com/Sensory/alexa-rpi.git
+cd $HOME/sdk-folder/third-party/alexa-rpi/bin/
+./license.sh
+
+cd $HOME/sdk-folder/sdk-build
+ cmake $HOME/sdk-folder/sdk-source/avs-device-sdk \
+ -DSENSORY_KEY_WORD_DETECTOR=ON \
+ -DSENSORY_KEY_WORD_DETECTOR_LIB_PATH=$HOME/sdk-folder/third-party/alexa-rpi/lib/libsnsr.a \
+ -DSENSORY_KEY_WORD_DETECTOR_INCLUDE_DIR=$HOME/sdk-folder/third-party/alexa-rpi/include \
  -DGSTREAMER_MEDIA_PLAYER=ON \
  -DPORTAUDIO=ON \
- -DPORTAUDIO_LIB_PATH=$HOME/sdk_folder/third-party/portaudio/lib/.libs/libportaudio.a \
- -DPORTAUDIO_INCLUDE_DIR=$HOME/sdk_folder/third-party/portaudio/include \
+ -DPORTAUDIO_LIB_PATH=$HOME/sdk-folder/third-party/portaudio/lib/.libs/libportaudio.a \
+ -DPORTAUDIO_INCLUDE_DIR=$HOME/sdk-folder/third-party/portaudio/include \
  -DCMAKE_BUILD_TYPE=DEBUG \
- -DCMAKE_INSTALL_PREFIX=$HOME/sdk_folder/sdk-install \
+ -DCMAKE_INSTALL_PREFIX=$HOME/sdk-folder/sdk-install \
  -DRAPIDJSON_MEM_OPTIMIZATION=OFF
 
  make install
 
-cp $HOME/config.json $HOME/sdk_folder/sdk-source/avs-device-sdk/tools/Install
+cp $HOME/config.json $HOME/sdk-folder/sdk-source/avs-device-sdk/tools/Install
 
-cd $HOME/sdk_folder/sdk-source/avs-device-sdk/tools/Install 
+cd $HOME/sdk-folder/sdk-source/avs-device-sdk/tools/Install 
 bash genConfig.sh config.json \
     your-device-serial-number \
-    $HOME/sdk_folder/db \
-    $HOME/sdk_folder/sdk-source/avs-device-sdk \
-    $HOME/sdk_folder/sdk-build/Integration/AlexaClientSDKConfig.json \
+    $HOME/sdk-folder/db \
+    $HOME/sdk-folder/sdk-source/avs-device-sdk \
+    $HOME/sdk-folder/sdk-build/Integration/AlexaClientSDKConfig.json \
     -DSDK_CONFIG_MANUFACTURER_NAME="manufacturer name" \
     -DSDK_CONFIG_DEVICE_DESCRIPTION="device description"
 
 # edit config file
-cd $HOME/sdk_folder/sdk-build/Integration
+cd $HOME/sdk-folder/sdk-build/Integration
 if ! grep -q "gstreamerMediPlayer" AlexaClientSDKConfig.json; then
     cp AlexaClientSDKConfig.json AlexaClientSDKConfig-$(date -d "today" +"%Y-%m-%d-%H%M%S").json 
     sed -i "s/^{/{\n    \"gstreamerMediaPlayer\":{\n        \"audioSink\":\"alsasink\"\n    },/" AlexaClientSDKConfig.json

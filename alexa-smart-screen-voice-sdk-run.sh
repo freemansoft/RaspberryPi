@@ -11,7 +11,7 @@ then
 fi
 
 # assumes in ~
-if [ ! -f "$HOME/sdk_folder/sdk-build/SampleApp/src/SampleApp" ] ;
+if [ ! -f "$HOME/sdk-folder/sdk-build/SampleApp/src/SampleApp" ] ;
 then
     echo "Sample not built.  Have you run alexa-smartscreen-sdk-setup.sh"
     exit 1
@@ -20,5 +20,5 @@ fi
 echo "t <enter> to wake.  q <enter> to quit"
 
 # run the sample app
-cd $HOME/sdk_folder/sdk-build
+cd $HOME/sdk-folder/sdk-build
 PA_ALSA_PLUGHW=1 ./SampleApp/src/SampleApp ./Integration/AlexaClientSDKConfig.json DEBUG9
