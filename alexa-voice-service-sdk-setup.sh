@@ -31,7 +31,7 @@ wget https://raw.githubusercontent.com/alexa/avs-device-sdk/master/tools/Install
 
 # assumes config.json is in $HOME
 if [ ! -f /$HOME/config.json ]; then
-    echo "This requires a file config.json in the developer's hoem directory of the one running this script"
+    echo "This requires a file config.json in the developer's home directory of the one running this script"
 fi
 
 cp $HOME/config.json $HOME/avs-device-sdk
@@ -42,6 +42,3 @@ sudo bash setup.sh $HOME/config.json
 
 # Will have some prompts to answer
 
-# Run the sample
-#cd /home/pi/
-#sudo bash startsample.sh
