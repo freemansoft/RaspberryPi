@@ -111,14 +111,31 @@ As of 11/2020
 
 # Additional scripts copied to boot partition
 A set of **optional** utility scripts will be copied to the boot partition.
+## Useful Utilities
 
 All of these must be run with _sudo_ 
 | | script | purpose |
 | - | - | - |
-| Speciality  | aircrack-install.sh           | Converts this pi to an aircrack machine with monitor mode |
 | Recommended | hostname-custom-serial-set.sh | Sets the hostname of the pi to pi-<serial_id>.  Updates /etc/hostname and /etc/hosts |
-| Optional    | lead-heartbeat-enable.sh      | Changes the trigger for the onboard status led to be a heartbeat pattern |
+| Optional    | led-heartbeat-enable.sh       | Changes the trigger for the onboard status led to be a heartbeat pattern |
 | Recommended | ufw-firewall-enable.sh        | Enables the firewall blocking all inbound traffic on wlan0 while leaving usb0 open |
+
+## Air crack experimentation
+All of these must be run with _sudo_ 
+| | script | purpose |
+| - | - | - |
+| Speciality  | aircrack-install.sh           | Converts this pi to an aircrack machine with monitor mode |
+
+## Alexa SDK experimentation scripts
+
+`smart-screen` scripts install/run per [Alexa Smart Screen Install for Raspberry Pi](https://developer.amazon.com/en-US/docs/alexa/alexa-smart-screen-sdk/raspberry-pi.html)
+You must read that guide to enable AVS with your Amazon account and get a config.json API token that you download to ~/pi.
+| script | purpose |
+| - | - |
+| alexa-smart-screen-voice-sdk-setup.sh | Installs the [Alexa Voice SDK (AVS) and SamppleApp using screen smart instructions](https://developer.amazon.com/en-US/docs/alexa/alexa-smart-screen-sdk/raspberry-pi.html)  |
+| alexa-smart-screen-voice-sdk-run.sh   | Runs the [AVS SampleApp using screen smart instructions](https://developer.amazon.com/en-US/docs/alexa/alexa-smart-screen-sdk/raspberry-pi.html) with wake word enabled |
+| alexa-smart-service-sdk-setup.sh | May not work at this time [AVS Sample App](https://developer.amazon.com/en-US/docs/alexa/alexa-voice-service/build-the-avs-device-sdk.html)  |
+| alexa-smart-service-sdk-run.sh   | May not work at this time [AVS Sample App](https://developer.amazon.com/en-US/docs/alexa/alexa-voice-service/build-the-avs-device-sdk.html)|
 
 
 # Notes about LEDs for future reference
