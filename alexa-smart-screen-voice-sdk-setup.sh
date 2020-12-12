@@ -5,6 +5,8 @@
 # Only installs the alexa voice sdk - as part of smart screen
 # Does not install the APL core library or the Smart Screen SDK!
 
+# true: install sensory library.  Will prompt for license approval
+# false: does not isntall sensory library.  Keyboard sample only
 enable_wake_word=true
 
 if [ $(id -u) -eq 0 ]
