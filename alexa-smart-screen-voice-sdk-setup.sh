@@ -4,7 +4,11 @@
 #
 # Only installs the alexa voice sdk - as part of smart screen
 # Does not install the APL core library or the Smart Screen SDK!
-
+#
+# There is a simple hack in here to create your $HOME/.asoundrc file.
+# It picks the highest numbered microphone OF 2.  
+# I did it that way because I have an AIY HAT and/or a Logitech Rockband USB mic
+#
 # true: install sensory library.  Will prompt for license approval
 # false: does not isntall sensory library.  Keyboard sample only
 enable_wake_word=true
@@ -24,10 +28,60 @@ then
     exit 1
 fi
 
+# Defer creating asound until done installing sound packages
+create_asound() {
+    found_mics=`arecord -l | grep card`
+    echo "Found microphones: "
+    echo "$found_mics"
+
+    if [ -f "$HOME/.asoundrc" ]
+    then
+        echo ".asoundrc exists - backing up and replacing"
+        cp $HOME/.asoundrc $HOME/.asoundrce-$(date -d "today" +"%Y-%m-%d-%H%M%S")
+    fi
+    if [[ "$found_mics" == *"card 1:"* ]];
+    then
+        echo "Found Mic on card 1."
+        cat > ~/.asoundrc <<- EOF
+pcm.!default {
+    type asym
+    playback.pcm {
+        type plug
+        slave.pcm "hw:0,0"
+    }
+    capture.pcm {
+        type plug
+        slave.pcm "hw:1,0"
+    }
+}
+EOF
+    elif  [[ "$found_mics" = *"card 0:"* ]];
+    then
+        echo "Found Mic on Card 0"
+        cat > ~/.asoundrc <<- EOF
+pcm.!default {
+    type asym
+    playback.pcm {
+        type plug
+        slave.pcm "hw:0,0"
+    }
+    capture.pcm {
+        type plug
+        slave.pcm "hw:0,0"
+    }
+}
+EOF
+    else
+        echo "Confused about installed microphones. Can't create .asoundrc"
+    fi
+
+}
+
+
 cd $HOME
-mkdir sdk-folder
+mkdir -p sdk-folder
 cd sdk-folder
-mkdir sdk-build sdk-source third-party sdk-install db
+mkdir -p sdk-build sdk-source third-party sdk-install db
 
 sudo apt-get -y install \
    git gcc cmake build-essential libsqlite3-dev libcurl4-openssl-dev libfaad-dev \
@@ -45,7 +99,6 @@ cd portaudio
 make
 
 pip install commentjson
-
 
 cd $HOME/sdk-folder/sdk-source    
 git clone --single-branch --branch v1.21.0 git://github.com/alexa/avs-device-sdk.git
@@ -104,8 +157,12 @@ if ! grep -q "gstreamerMediPlayer" AlexaClientSDKConfig.json; then
     sed -i "s/^{/{\n    \"gstreamerMediaPlayer\":{\n        \"audioSink\":\"alsasink\"\n    },/" AlexaClientSDKConfig.json
 fi
 
+# recreate ~/.asound
+create_asound
+
 # verify audio is working prior to install
+echo "playing sound to make sure it isn't all dead"
 aplay /usr/share/sounds/alsa/Front_Center.wav
 
 echo "Run the SDK sample using alexa-smart-screen-voice-sdk-run.sh"
-echo "The APL Core library and scmart screen app have not yet been installed!!"
+echo "The APL Core library and smart screen app have not yet been installed!!"
