@@ -31,14 +31,16 @@ This has been tested with the following:
 
 ## Sample devices
 
-Google AIY V1 Voice Hat - Internal Sound disabled
+* Image: aiyprojects-2020-11-20.img.xz
+* Google AIY V1 Voice Hat - Internal Sound disabled
 ```bash
 $ aplay -l
 **** List of PLAYBACK Hardware Devices ****
 card 0: sndrpigooglevoi [snd_rpi_googlevoicehat_soundcar], device 0: Google voiceHAT SoundCard HiFi voicehat-codec-0 [Google voiceHAT SoundCard HiFi voicehat-codec-0]
   Subdevices: 0/1
   Subdevice #0: subdevice #0
-
+```
+```bash
 $ arecord -l
 **** List of CAPTURE Hardware Devices ****
 card 0: sndrpigooglevoi [snd_rpi_googlevoicehat_soundcar], device 0: Google voiceHAT SoundCard HiFi voicehat-codec-0 [Google voiceHAT SoundCard HiFi voicehat-codec-0]
