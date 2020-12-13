@@ -21,7 +21,8 @@ I built this using PowerShell because my base laptop is a windows machine.
 
 
 ## Video Walkthrough
-[![Video Walkthrough using Pi Zero W with ethernet gadget](https://i9.ytimg.com/vi/Ci_mZJoS3tg/mq3.jpg?sqp=CIyYgf4F&rs=AOn4CLC1JsYWLTaAGd9ybdNrNLXm6SQfJw)](https://youtu.be/Ci_mZJoS3tg "Youtube")
+* Setup and usage of Ethernet Gadget
+[![Video Walkthrough using Pi Zero W with ethernet gadget](http://img.youtube.com/vi/Ci_mZJoS3tg/0.jpg)](https://youtu.be/Ci_mZJoS3tg "Youtube")
 
 ## Configure a Raspberry PI Zero O/S SDCard using Enable-Ethernet-Gadget.ps
 1. Configures the Pi Zero USB as OTG
