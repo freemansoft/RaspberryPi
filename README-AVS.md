@@ -1,8 +1,10 @@
 # AWS Voice Service SDK - Alexa 
-There are scripts that install Amazon Voice Service code and samples.  Wakeword can be enabled.
+Download, build and run Amazon Voice Service code and samples.  Wakeword can be enabled.
 
 ## Installation and execution scripts scripts
 `smart-screen` scripts install/run per [Alexa Smart Screen Install for Raspberry Pi](https://developer.amazon.com/en-US/docs/alexa/alexa-smart-screen-sdk/raspberry-pi.html)
+Building on a Raspberry Pi 3 takes **hours**
+
 You must read that guide to enable AVS with your Amazon account and get a config.json API token that you download to ~pi home directory.
 | script | purpose |
 | - | - |
