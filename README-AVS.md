@@ -36,6 +36,12 @@ This has been tested with the following:
 | AIY voice hat on RPi3 | 0 | Yes | Yes |
 | HDMI Audio Channel | ? | No | N/A |
 
+## Video walkthrough
+
+[![Walkthrough installing AVS with Google AIY Voice hardware](http://img.youtube.com/vi/00nmUphjxog/0.jpg)](https://youtu.be/00nmUphjxog "Video")
+
+[![Walkthroiugh installing AVS on stock RPi3 Hardware](http://img.youtube.com/vi/qLfiqOiEKPY/0.jpg)](https://youtu.be/qLfiqOiEKPY "Video")
+
 ## Example: Devices
 
 ### AIY
