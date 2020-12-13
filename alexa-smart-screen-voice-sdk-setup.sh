@@ -30,6 +30,7 @@ mkdir -p sdk-folder
 cd sdk-folder
 mkdir -p sdk-build sdk-source third-party sdk-install db
 
+sudo apt-get update
 sudo apt-get -y install \
    git gcc cmake build-essential libsqlite3-dev libcurl4-openssl-dev libfaad-dev \
    libssl-dev libsoup2.4-dev libgcrypt20-dev libgstreamer-plugins-bad1.0-dev \

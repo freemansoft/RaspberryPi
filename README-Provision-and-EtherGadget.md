@@ -1,3 +1,11 @@
+# Wifi and ssh
+Enalbe-Ethernet-Gadget.ps1 does more than enable just the gadget for the Raspberry Pi Zero
+1. Enables SSH
+1. Enables wifi if network name and password provided
+
+## Setup
+Run the powershell script as described below
+
 # PiZero and Ethernet over USB
 Windows Powershell scripts and automation for building and configuring Raspberry Pi (Zero W) as an Ethernet Gadget.  This means you can write a new Raspberry Pi Image and configure it for as a USB Network device and configure Wi-Fi before installing the card into a Raspberry Pi and starting it.
 

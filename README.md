@@ -3,7 +3,8 @@ It now contains a couple realitively unrelated sets of tools
 
 | Segment | Target Machine |
 | -- | -- |
-| [Raspberry Pi Zero Ethernet Gadget - use networking over USB](./README.EtherGadget.md) | Raspberry Pi Zero |
+| [Enable SSH.  Enable Wifi Supplicant. ](./README.Provision-and-EtherGadget.md) | All |
+| [Raspberry Pi Zero Ethernet Gadget - use networking over USB](./README.Provision-and-EtherGadget.md) | Raspberry Pi Zero |
 | [AWS AVS SDK and Sample - Voice recognition using AVS - also Google](./README.AVS.md) | Raspberry Pi 3 and up, Pi Zero |
 | [Utilities including custom host names](./README-Utility-Scripts.md) | Machines with Networking |
 | [Utilities including wireless firewall restrictions](./README-Utility-Scripts.md) | Machines with wireless |
