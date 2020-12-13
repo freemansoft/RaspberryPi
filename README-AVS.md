@@ -2,10 +2,13 @@
 Download, build and run Amazon Voice Service code and samples.  Wakeword can be enabled.
 
 ## Installation and execution scripts scripts
-`smart-screen` scripts install/run per [Alexa Smart Screen Install for Raspberry Pi](https://developer.amazon.com/en-US/docs/alexa/alexa-smart-screen-sdk/raspberry-pi.html)
+`smart-screen` scripts that install and run an AVS SampleApp per [Alexa Smart Screen Install for Raspberry Pi](https://developer.amazon.com/en-US/docs/alexa/alexa-smart-screen-sdk/raspberry-pi.html)
+
 Building on a Raspberry Pi 3 takes **hours**
 
-You must read that guide to enable AVS with your Amazon account and get a config.json API token that you download to ~pi home directory.
+You must read and follow the 
+[guide to enable AVS with your Amazon account](https://developer.amazon.com/en-US/docs/alexa/alexa-voice-service/register-a-product.html#register-your-prototype-and-create-a-security-profile) 
+and get a config.json API token that you download to ~pi home directory.
 | script | purpose |
 | - | - |
 | alexa-smart-screen-voice-sdk-setup.sh | Installs the [Alexa Voice SDK (AVS) and SamppleApp using screen smart instructions](https://developer.amazon.com/en-US/docs/alexa/alexa-smart-screen-sdk/raspberry-pi.html)  |
@@ -35,6 +38,7 @@ This has been tested with the following:
 
 ## Example: Devices
 
+### AIY
 * Image: aiyprojects-2020-11-20.img.xz
 * Google AIY V1 Voice Hat - Internal Sound disabled
 ```bash
@@ -79,6 +83,35 @@ card 2: Microphone [Logitech USB Microphone], device 0: USB Audio [USB Audio]
   Subdevice #0: subdevice #0
 pi@pi-73b4b588:~ $
 ```
+
+### Buster headless
+* Image: Buster
+* No monitor, headphones only, USB Logitech Rock Band Mic
+
+```bash
+pi@pi-52863f1:~ $ aplay -l
+**** List of PLAYBACK Hardware Devices ****
+card 0: Headphones [bcm2835 Headphones], device 0: bcm2835 Headphones [bcm2835 Headphones]
+  Subdevices: 8/8
+  Subdevice #0: subdevice #0
+  Subdevice #1: subdevice #1
+  Subdevice #2: subdevice #2
+  Subdevice #3: subdevice #3
+  Subdevice #4: subdevice #4
+  Subdevice #5: subdevice #5
+  Subdevice #6: subdevice #6
+  Subdevice #7: subdevice #7
+
+```
+```bash
+pi@pi-52863f1:~ $ arecord -l
+**** List of CAPTURE Hardware Devices ****
+card 1: Microphone [Logitech USB Microphone], device 0: USB Audio [USB Audio]
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+
+```
+
 
 ## Tested O/S 
 Currently only tested on Raspberry Pi3 running Google Raspberry Pi Image and Google AIY V1 Voice Hat.
