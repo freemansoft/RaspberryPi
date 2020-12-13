@@ -13,6 +13,10 @@ You must read that guide to enable AVS with your Amazon account and get a config
 | alexa-smart-service-sdk-setup.sh | May not work at this time [AVS Sample App](https://developer.amazon.com/en-US/docs/alexa/alexa-voice-service/build-the-avs-device-sdk.html)  |
 | alexa-smart-service-sdk-run.sh   | May not work at this time [AVS Sample App](https://developer.amazon.com/en-US/docs/alexa/alexa-voice-service/build-the-avs-device-sdk.html)|
 
+You will be prompted on random intervals to provide registration codes for dev environments. 
+
+![Registration Screen](./images/AVS-Device-Registration.png)
+
 ## AVS Hardware Microphone
 [alexa-smart-screen-voice-sdk-run.sh](./alexa-smart-screen-voice-sdk-run.sh) attempts to configure the microphone via ~/.asoundrc file.  
 It supports a USB Microphone I have tested it with AIY Voice Hat. 
@@ -29,7 +33,7 @@ This has been tested with the following:
 | AIY voice hat on RPi3 | 0 | Yes | Yes |
 | HDMI Audio Channel | ? | No | N/A |
 
-## Sample devices
+## Example: Devices
 
 * Image: aiyprojects-2020-11-20.img.xz
 * Google AIY V1 Voice Hat - Internal Sound disabled
