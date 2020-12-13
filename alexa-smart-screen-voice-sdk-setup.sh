@@ -2,8 +2,9 @@
 #
 # https://developer.amazon.com/en-US/docs/alexa/alexa-smart-screen-sdk/raspberry-pi.html
 #
-# Only installs the alexa voice sdk - as part of smart screen
+# Installs the alexa voice sdk - as part of smart screen
 # Does not install the APL core library or the Smart Screen SDK!
+# NOTE: Only tested with Google AIY Voice Hat and an GoogleAIY Raspberry Pi OS image
 #
 # There is a simple hack in here to create your $HOME/.asoundrc file.
 # It picks the highest numbered microphone OF 2.  
