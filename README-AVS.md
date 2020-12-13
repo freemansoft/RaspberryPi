@@ -38,10 +38,10 @@ This has been tested with the following:
 
 ## Video walkthrough
 
-### Installation and usage on stock RPi with USB mic and audio jack
+**Installation and usage on stock RPi with USB mic and audio jack**
 [![Walkthroiugh installing AVS on stock RPi3 Hardware](http://img.youtube.com/vi/qLfiqOiEKPY/0.jpg)](https://youtu.be/qLfiqOiEKPY "Video")
 
-### Installation and Usage on a RPi with Google AIY Voice Hat
+**Installation and Usage on a RPi with Google AIY Voice Hat**
 [![Walkthrough installing AVS with Google AIY Voice hardware](http://img.youtube.com/vi/00nmUphjxog/0.jpg)](https://youtu.be/00nmUphjxog "Video")
 
 
