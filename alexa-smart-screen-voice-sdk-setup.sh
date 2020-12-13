@@ -6,10 +6,6 @@
 # Does not install the APL core library or the Smart Screen SDK!
 # NOTE: Only tested with Google AIY Voice Hat and an GoogleAIY Raspberry Pi OS image
 #
-# There is a simple hack in here to create your $HOME/.asoundrc file.
-# It picks the highest numbered microphone OF 2.  
-# I did it that way because I have an AIY HAT and/or a Logitech Rockband USB mic
-#
 # true: install sensory library.  Will prompt for license approval
 # false: does not isntall sensory library.  Keyboard sample only
 enable_wake_word=true
@@ -28,56 +24,6 @@ then
     echo "Create config.json using the Amazon portal https://developer.amazon.com/en-US/docs/alexa/alexa-voice-service/input-avs-credentials.html"
     exit 1
 fi
-
-# Defer creating asound until done installing sound packages
-create_asound() {
-    found_mics=`arecord -l | grep card`
-    echo "Found microphones: "
-    echo "$found_mics"
-
-    if [ -f "$HOME/.asoundrc" ]
-    then
-        echo ".asoundrc exists - backing up and replacing"
-        cp $HOME/.asoundrc $HOME/.asoundrce-$(date -d "today" +"%Y-%m-%d-%H%M%S")
-    fi
-    if [[ "$found_mics" == *"card 1:"* ]];
-    then
-        echo "Found Mic on card 1."
-        cat > ~/.asoundrc <<- EOF
-pcm.!default {
-    type asym
-    playback.pcm {
-        type plug
-        slave.pcm "hw:0,0"
-    }
-    capture.pcm {
-        type plug
-        slave.pcm "hw:1,0"
-    }
-}
-EOF
-    elif  [[ "$found_mics" = *"card 0:"* ]];
-    then
-        echo "Found Mic on Card 0"
-        cat > ~/.asoundrc <<- EOF
-pcm.!default {
-    type asym
-    playback.pcm {
-        type plug
-        slave.pcm "hw:0,0"
-    }
-    capture.pcm {
-        type plug
-        slave.pcm "hw:0,0"
-    }
-}
-EOF
-    else
-        echo "Confused about installed microphones. Can't create .asoundrc"
-    fi
-
-}
-
 
 cd $HOME
 mkdir -p sdk-folder
@@ -158,12 +104,9 @@ if ! grep -q "gstreamerMediPlayer" AlexaClientSDKConfig.json; then
     sed -i "s/^{/{\n    \"gstreamerMediaPlayer\":{\n        \"audioSink\":\"alsasink\"\n    },/" AlexaClientSDKConfig.json
 fi
 
-# recreate ~/.asound
-create_asound
-
 # verify audio is working prior to install
 echo "playing sound to make sure it isn't all dead"
 aplay /usr/share/sounds/alsa/Front_Center.wav
 
-echo "Run the SDK sample using alexa-smart-screen-voice-sdk-run.sh"
 echo "The APL Core library and smart screen app have not yet been installed!!"
+echo "Run the SDK sample using alexa-smart-screen-voice-sdk-run.sh"
