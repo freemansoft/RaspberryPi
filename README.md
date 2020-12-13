@@ -8,3 +8,5 @@ It now contains a couple realitively unrelated sets of tools
 | [Utilities including custom host names](./README-Utility-Scripts.md) | Machines with Networking |
 | [Utilities including wireless firewall restrictions](./README-Utility-Scripts.md) | Machines with wireless |
 | [Hacking Aircrack installation](./README-Utility-Scripts.md) | Machines with wireless |
+
+![Script Flow](./images/Script-Flow.png)
