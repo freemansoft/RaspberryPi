@@ -1,5 +1,6 @@
 #!/bin/bash
 # Install the speedtest cli from https://www.speedtest.net/apps/cli
+# See README-Net-Check.md
 
 sudo apt-get -y install gnupg1 apt-transport-https dirmngr
 export INSTALL_KEY=379CE192D401AB61
@@ -13,7 +14,3 @@ sudo apt-get -y install speedtest
 
 # Run the CLI the first time to accept conditions
 speedtest
-
-# The CLI supports
-# speedtest --format=[default, human-readable | csv | tsv | json | jsonl | json-pretty]
-
