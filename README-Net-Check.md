@@ -26,5 +26,5 @@ Packet Loss:     0.0%
 ## Scripts
 | Script | Purpose |
 | - | - |
-| speedtest-cli.sh | downloads the Speedtest.net CLI |
+| speedtest-cli-install.sh | downloads the Speedtest.net CLI |
 | ?? | ?? | 
