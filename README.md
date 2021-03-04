@@ -11,9 +11,9 @@ The .sh scripts in this project should be available to you on your new Pi in /bo
 1. Host name
 1. Wireless firewall lock down
 
-## Documentation 
+## This repository
 
-| Available Readme files | Target Machine |
+| Available functionality with files | Target Machine |
 | -- | -- |
 | [Enable SSH.  Enable Wifi Supplicant. ](./README-Provision-and-EtherGadget.md) | All - Fresh OS SD cards |
 | [Raspberry Pi Zero Ethernet Gadget - use networking over USB](./README-Provision-and-EtherGadget.md) | Raspberry Pi Zero - Fresh SD cards|
@@ -23,3 +23,15 @@ The .sh scripts in this project should be available to you on your new Pi in /bo
 | [Hacking Aircrack installation](./README-Utility-Scripts.md) | Machines with wireless |
 
 ![Script Flow](./images/Script-Flow.png)
+
+## Videos on YouTube 
+
+1. [Scripted Install of Amazon Voice Services on a Raspberry Pi](https://youtu.be/qLfiqOiEKPY)
+1. [Running Amazon AVS on a Raspberry Pi with Google AIY Hardware](https://youtu.be/00nmUphjxog)
+1. [Remote development on a headless Raspberry Pi with Visual studio Code](https://youtu.be/x69x4bW9OyM)
+1. [Build a Raspberry Pi image for the Ethernet Gadget](https://youtu.be/Ci_mZJoS3tg)
+
+## Other References
+1. [Setting up the Raspberry Pi Zero without HDMI or OTG](http://joe.blog.freemansoft.com/2018/03/setting-up-raspberry-pi-zero-without.html)
+1. [Protecting the Pi: Restricting SSH to hardwire connections](http://joe.blog.freemansoft.com/2018/03/protecting-pi-restricting-ssh-to-usb.html
+)
