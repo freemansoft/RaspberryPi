@@ -20,3 +20,9 @@ All of these must be run with _sudo_
 | - | - | - |
 | Speciality  | aircrack-install.sh           | Converts this pi to an aircrack machine with monitor mode |
 
+# Other notes
+ You can reduce the O/S update times by uninstalling components. The Raspberry Pi 400 comes with a lot installed. You can save over 2GB of SD card space with:
+```bash
+sudo apt-get purge wolfram-engine
+sudo apt-get autoremove
+```
