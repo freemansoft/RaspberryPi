@@ -19,7 +19,6 @@ I built this using PowerShell because my base laptop is a windows machine.
 ## Pi topology for devices that don't support g_ether: Pi-2, Pi-3, Pi-4, etc.
 ![Topology with PC and Ethernet connected Pi](./images/Pi-Network-Non-Zero.png)
 
-
 ## Video Walkthrough
 * Setup and usage of Ethernet Gadget
 [![Video Walkthrough using Pi Zero W with ethernet gadget](http://img.youtube.com/vi/Ci_mZJoS3tg/0.jpg)](https://youtu.be/Ci_mZJoS3tg "Youtube")
@@ -50,7 +49,7 @@ I built this using PowerShell because my base laptop is a windows machine.
 1. You should see `USB Ethernet/RNDIS Gadget` in the _Device Manager_ control panel
   * ![Widnows Device Manager](./images/RaspberryPi-NDIS-Gadget.png)
   
-## Steps to configure Pi 3 or other _non Zero_ device
+## Steps to configure Pi 3 or other _non Pi Zero_ devices
 1. Create a new micro SD card using the _Raspberry Pi Imager_
     1. You may have to eject the card and re-insert it to mount the boot partition
 1. Run the script `Enable-Ethernet-Gadget.ps` as described in _Usage_
@@ -78,6 +77,10 @@ I built this using PowerShell because my base laptop is a windows machine.
 1. SSH into the device
 1. run `ifconfig wlan0` and verify the IP address is from your network. 
   * A `169.x.y.z` address means it did not work.
+
+## Log in and set the hostname and firelall rules
+1. SSH into the device
+1. Follow the instructions in README-Provision-and-EtherGadget.md
 
 ## Troubleshooting
 ### Enabling Powershell scripts
