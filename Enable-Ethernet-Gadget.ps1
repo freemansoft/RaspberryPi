@@ -1,13 +1,20 @@
 ﻿# Usage:
-# Enable-Ethernet-Gadget -$PIBootDrive F: -NetworkName my-ssid -NetworkPassord my-network-password
+# Enable-Ethernet-Gadget -PIBootDrive F: -NetworkName my-ssid -NetworkPassord my-network-password
 
 #Commandline parameters
 param (
     # Change this to your SD card boot location or pass in as parameter
     $PiBootDrive="f:", 
     $NetworkName,
-    $NetworkPassword
+    $NetworkPassword,
+    [switch] $help
     )
+
+if ($help)
+{
+    write-host "usage: Enable-Ethernet-Gadget [-PIBootDrive F:] [-NetworkName my-ssid] [-NetworkPassord my-network-password] [-help]"
+    exit
+}
 
 $SshFileNamePath = "$PiBootDrive\\ssh"
 Write-Debug "SshFileNamePath: $SshFileNamePath"
@@ -27,7 +34,9 @@ $WpaSupplicantPath="$PiBootDrive\\wpa_supplicant.conf"
 ####################################################
 # We know this file is always there
 if (!(Test-Path $ConfigFilePath)){
-    Write-Warning "Exiting: Can't find files in $PiBootDrive.  Is PiBootDrive set correctly?"
+    $script_name=$MyInvocation.MyCommand.Name
+    Write-host "See usage: '$script_name -help'"
+    Write-warning "Exiting: Is PiBootDrive set correctly?  Can't find Pi bootfiles in $PiBootDrive. "
     exit
 }
 
@@ -101,7 +110,7 @@ network={
     $WpaSupplicantString = $WpaSupplicantString -replace "NetworkPassword", "$NetworkPassword"
     Set-Content -NoNewline -Path $WpaSupplicantPath -Value $WpaSupplicantString
 } else {
-    Write-Output "Network not enabled: NetworkName or NetworkPassword not provided"
+    Write-Output "Wireless network not enabled: -NetworkName or -NetworkPassword not provided"
 }
 
 ###################################################
@@ -110,3 +119,5 @@ Write-Output "Copying aircrack-install.sh to boot volume in case you want to ins
 Write-Output "Copying firewall.sh to boot volume in case you want to allow SSH only on USB0"
 Write-Output "Copying hostname-custom-serial.sh to boot volume in case you want to set hostname to pi-<serial>.local"
 Copy-Item -Path "*.sh" -Destination "$PiBootDrive"
+
+Write-Output "Eject this Card, install in Pi, boot the Pi, ssh into the 'raspberrypi.local' as 'pi', run the scripts in /boot "
