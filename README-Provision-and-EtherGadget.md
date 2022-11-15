@@ -48,6 +48,7 @@ I built this using PowerShell because my base laptop is a windows machine.
 1. Wait for the device to boot up. The first boot is the slowest as it unpacks the fresh O/S
 1. You should see `USB Ethernet/RNDIS Gadget` in the _Device Manager_ control panel
   * ![Widnows Device Manager](./images/RaspberryPi-NDIS-Gadget.png)
+  * Read [this blog](https://joe.blog.freemansoft.com/2022/11/installing-rndis-driver-on-windows-11.html) to learn hou can install the Windows RNDIS driver if you only see a `USB Serial Port` in the control panel. Should work for Windows 10 and Windows 11.
   
 ## Steps to configure Pi 3 or other _non Pi Zero_ devices
 1. Create a new micro SD card using the _Raspberry Pi Imager_

@@ -33,5 +33,5 @@ The .sh scripts in this project should be available to you on your new Pi in /bo
 
 ## Other References
 1. [Setting up the Raspberry Pi Zero without HDMI or OTG](http://joe.blog.freemansoft.com/2018/03/setting-up-raspberry-pi-zero-without.html)
-1. [Protecting the Pi: Restricting SSH to hardwire connections](http://joe.blog.freemansoft.com/2018/03/protecting-pi-restricting-ssh-to-usb.html
-)
+1. [Protecting the Pi: Restricting SSH to hardwire connections](http://joe.blog.freemansoft.com/2018/03/protecting-pi-restricting-ssh-to-usb.html)
+1. [Minor hints on the Windows RNDIS driver](https://joe.blog.freemansoft.com/2022/11/installing-rndis-driver-on-windows-11.html)
