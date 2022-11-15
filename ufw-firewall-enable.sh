@@ -9,6 +9,7 @@ if [ $(id -u) -ne 0 ]
   exit 1
 fi
 
+apt-get update
 apt-get -y install ufw
 echo "Blocking all inbound"
 echo "Blocking all outbound"

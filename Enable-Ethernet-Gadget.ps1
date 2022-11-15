@@ -118,6 +118,8 @@ network={
 Write-Output "Copying aircrack-install.sh to boot volume in case you want to install and use it"
 Write-Output "Copying firewall.sh to boot volume in case you want to allow SSH only on USB0"
 Write-Output "Copying hostname-custom-serial.sh to boot volume in case you want to set hostname to pi-<serial>.local"
+Write-Output "Copying major security hole restoring default pi user unless you edit userconf.txt"
 Copy-Item -Path "*.sh" -Destination "$PiBootDrive"
+Copy-Item -Path "userconf.txt" -Destination "$PiBootDrive"
 
 Write-Output "Eject this Card, install in Pi, boot the Pi, ssh into the 'raspberrypi.local' as 'pi', run the scripts in /boot "

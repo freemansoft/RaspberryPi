@@ -14,6 +14,8 @@ These must be run with `sudo`
 | `sudo /boot/led-heartbeat-enable.sh`       | Optional | Changes the trigger for the Pi-Zero onboard status led to be a heartbeat pattern |
 | `sudo /boot/ufw-firewall-enable.sh`        | Recommended | Enables the firewall blocking all inbound traffic on wlan0 while leaving hardwire eth0 / usb0 open to SSH |
 
+* The `ufw-firewall-enable.sh` script reqiures internet access either via wifi or via connection sharing (tested on mac)
+
 # Air crack experimentation
 All of these must be run with _sudo_ 
 | | script | purpose |
