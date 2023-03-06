@@ -1,14 +1,18 @@
 #!/bin/bash
+# SPDX-FileCopyrightText: 2022 Joe Freeman joe@freemansoft.com
+#
+# SPDX-License-Identifier: MIT
+#
 # is rerunable
 #
-# Portions styled from 
+# Portions styled from
 # ref: https://kerneltalks.com/virtualization/how-to-reset-iptables-to-default-settings/
 # ref: https://makezine.com/2017/09/07/secure-your-raspberry-pi-against-attackers/
 # ref: https://www.raspberrypi.org/documentation/remote-access/ssh/
 # ref: https://serverfault.com/questions/475717/iptables-block-incoming-on-eth1-and-allow-all-from-eth0
 # ref: https://askubuntu.com/a/30157/8698
 
-# eth0 hardware, 
+# eth0 hardware,
 # wlan0 PZero, P3, P3+ builtin or P2 USB Wi-fi
 # wlan1 P3, P3+ USB Wi-Fi
 disable_eth0=false
@@ -71,7 +75,7 @@ if [ "$disable_eth0" = true ]; then
         iptables -A INPUT -p tcp --dport 22 -i eth0 -j DROP
         ip6tables -A INPUT -p tcp --dport 22 -i eth0 -j DROP
     fi
-else 
+else
     echo "eth0: No block requested"
 fi
 
@@ -96,7 +100,7 @@ else
   ip6tables-save >/etc/iptables/rules.v6
 fi
 
-if [ "`systemctl is-active ssh`" != "active" ] 
+if [ "`systemctl is-active ssh`" != "active" ]
 then
     echo "starting ssh"
     systemctl enable ssh

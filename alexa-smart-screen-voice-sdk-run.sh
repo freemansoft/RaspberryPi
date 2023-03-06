@@ -1,7 +1,11 @@
 #!/bin/bash
+# SPDX-FileCopyrightText: 2022 Joe Freeman joe@freemansoft.com
+#
+# SPDX-License-Identifier: MIT
+#
 #
 # https://developer.amazon.com/en-US/docs/alexa/alexa-smart-screen-sdk/raspberry-pi.html
-# 
+#
 # Runs the Alexa Voice Service SDK that is installed as phase 1 of the Alexa smart screen installation
 
 if [ $(id -u) -eq 0 ]
@@ -18,7 +22,7 @@ then
 fi
 
 # There is a simple hack in here to create your $HOME/.asoundrc file.
-# It picks the highest numbered microphone OF 2.  
+# It picks the highest numbered microphone OF 2.
 # I did it that way because I have an AIY HAT and/or a Logitech Rockband USB mic
 #
 # Defer creating asound until done installing sound packages

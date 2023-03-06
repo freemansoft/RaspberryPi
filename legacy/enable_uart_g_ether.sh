@@ -1,7 +1,11 @@
 #!/bin/bash
+# SPDX-FileCopyrightText: 2022 Joe Freeman joe@freemansoft.com
+#
+# SPDX-License-Identifier: MIT
+#
 #
 # Enable the uart
-# enable gadget on Raspberry Pi Zero 
+# enable gadget on Raspberry Pi Zero
 # is rerunable
 #
 
@@ -33,7 +37,7 @@ else
     echo "uart enabled"
 fi
 # handles if the line commented out
-if grep -q "$dwc2_enabled" $boot_config_file; then 
+if grep -q "$dwc2_enabled" $boot_config_file; then
     echo "dtoverlay dwc2 previously enabled"
 else
     grep -qF -- "$dwc2_enabled" $boot_config_file || echo "$dwc2_enable" >> "$boot_config_file"
@@ -41,7 +45,7 @@ else
 fi
 
 # now work on $boot_cmd_file
-if grep -q "$load_ether" $boot_cmd_file; then 
+if grep -q "$load_ether" $boot_cmd_file; then
     echo "ether gadget already added to cmdline"
 else
     sed -i "s/rootwait/rootwait $load_ether/" $boot_cmd_file

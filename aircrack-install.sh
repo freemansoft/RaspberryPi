@@ -1,6 +1,10 @@
 #!/bin/bash
+# SPDX-FileCopyrightText: 2022 Joe Freeman joe@freemansoft.com
 #
-# Copy this to the boot directory and 
+# SPDX-License-Identifier: MIT
+#
+#
+# Copy this to the boot directory and
 # run sudo
 #
 # from https://medium.com/@THESMASHY/raspberry-pi-zero-w-wifi-hacking-gadget-63e3fa1c3c8d

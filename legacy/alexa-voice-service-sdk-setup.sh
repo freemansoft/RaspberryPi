@@ -1,4 +1,8 @@
 #!/bin/bash
+# SPDX-FileCopyrightText: 2022 Joe Freeman joe@freemansoft.com
+#
+# SPDX-License-Identifier: MIT
+#
 # cannot run headless unless pipe "YES" in for license agreement
 #
 
@@ -36,7 +40,7 @@ fi
 
 cp $HOME/config.json $HOME/avs-device-sdk
 sed -i 's/-j2/-j1/g' setup.sh
-# could pipe in yes for this let it pick its own serial number or provide one 
+# could pipe in yes for this let it pick its own serial number or provide one
 #sudo bash setup.sh config.json -s 123456
 sudo bash setup.sh $HOME/config.json
 

@@ -1,8 +1,12 @@
 #!/bin/bash
+# SPDX-FileCopyrightText: 2022 Joe Freeman joe@freemansoft.com
+#
+# SPDX-License-Identifier: MIT
+#
 # Enable the firewall as the following
 #   block inbound
 #   allow outbound
-#   allow inbound on usb0 - gadget 
+#   allow inbound on usb0 - gadget
 
 if [ $(id -u) -ne 0 ]
   then echo "Please run as root"

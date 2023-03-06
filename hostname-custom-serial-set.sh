@@ -1,8 +1,12 @@
 #!/bin/bash
+# SPDX-FileCopyrightText: 2022 Joe Freeman joe@freemansoft.com
+#
+# SPDX-License-Identifier: MIT
+#
 #
 # WRITE DOWN THE NEW GENERATED HOSTNAME BEFORE REBOOTING!
-# 
-# Sets the hostname to pi-<serial> 
+#
+# Sets the hostname to pi-<serial>
 # bonjour hostname will be pi-<serial>.local
 # host entry will still exist for raspberrypi.local
 #

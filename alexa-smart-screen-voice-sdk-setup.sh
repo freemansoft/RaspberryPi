@@ -1,4 +1,8 @@
 #!/bin/bash
+# SPDX-FileCopyrightText: 2022 Joe Freeman joe@freemansoft.com
+#
+# SPDX-License-Identifier: MIT
+#
 #
 # https://developer.amazon.com/en-US/docs/alexa/alexa-smart-screen-sdk/raspberry-pi.html
 #
@@ -48,11 +52,11 @@ make
 
 pip install commentjson
 
-cd $HOME/sdk-folder/sdk-source    
+cd $HOME/sdk-folder/sdk-source
 git clone --single-branch --branch v1.21.0 git://github.com/alexa/avs-device-sdk.git
 
 if [ "$enable_wake_word" = true ] ; then
-    # This installs the sensory library to enable wake word.  
+    # This installs the sensory library to enable wake word.
     # It pauses the installation asking for liscense agreement.
     # There should really be a switch here to enable/disable
     cd $HOME/sdk-folder/third-party
@@ -89,7 +93,7 @@ make install
 # copy the config.json we got from amazon
 cp $HOME/config.json $HOME/sdk-folder/sdk-source/avs-device-sdk/tools/Install
 
-cd $HOME/sdk-folder/sdk-source/avs-device-sdk/tools/Install 
+cd $HOME/sdk-folder/sdk-source/avs-device-sdk/tools/Install
 bash genConfig.sh config.json \
     your-device-serial-number \
     $HOME/sdk-folder/db \
@@ -101,7 +105,7 @@ bash genConfig.sh config.json \
 # edit config file
 cd $HOME/sdk-folder/sdk-build/Integration
 if ! grep -q "gstreamerMediPlayer" AlexaClientSDKConfig.json; then
-    cp AlexaClientSDKConfig.json AlexaClientSDKConfig-$(date -d "today" +"%Y-%m-%d-%H%M%S").json 
+    cp AlexaClientSDKConfig.json AlexaClientSDKConfig-$(date -d "today" +"%Y-%m-%d-%H%M%S").json
     sed -i "s/^{/{\n    \"gstreamerMediaPlayer\":{\n        \"audioSink\":\"alsasink\"\n    },/" AlexaClientSDKConfig.json
 fi
 

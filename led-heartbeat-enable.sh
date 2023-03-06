@@ -1,4 +1,8 @@
 #!/bin/bash
+# SPDX-FileCopyrightText: 2022 Joe Freeman joe@freemansoft.com
+#
+# SPDX-License-Identifier: MIT
+#
 # Change the behavior of the status led to be a pattern
 led_trigger="heartbeat"
 led_trigger_modprobe="modprobe ledtrig_heartbeat"
@@ -14,6 +18,6 @@ rc_local_target="# Blink status LED in heartbeat pattern\n$led_trigger_modprobe\
 if ! grep -q "$led_trigger" /etc/rc.local; then
   echo "Enabling $led_trigger style led blinking via rc.local"
   sed -i "s|$rc_local_orig|$rc_local_target|g" /etc/rc.local
-else 
+else
   echo "Hearbeat style led blinking via rc.local already enabled"
 fi

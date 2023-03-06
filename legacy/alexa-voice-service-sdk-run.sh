@@ -1,4 +1,8 @@
 #!/bin/bash
+# SPDX-FileCopyrightText: 2022 Joe Freeman joe@freemansoft.com
+#
+# SPDX-License-Identifier: MIT
+#
 
 if [ ! -f "$HOME/avs-device-sdk/startsample.sh" ] ;
 then
@@ -10,7 +14,7 @@ fi
 # edit config file
 cd $HOME/avs-device-sdk/build/Integration
 if ! grep -q "gstreamerMediPlayer" AlexaClientSDKConfig.json; then
-    cp AlexaClientSDKConfig.json AlexaClientSDKConfig-$(date -d "today" +"%Y-%m-%d-%H%M%S").json 
+    cp AlexaClientSDKConfig.json AlexaClientSDKConfig-$(date -d "today" +"%Y-%m-%d-%H%M%S").json
     sed -i "s/^{/{\n    \"gstreamerMediaPlayer\":{\n        \"audioSink\":\"alsasink\"\n    },/" AlexaClientSDKConfig.json
 fi
 
